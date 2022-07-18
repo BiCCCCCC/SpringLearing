@@ -3,26 +3,75 @@ package cn.edu.swu.controller;
 import cn.edu.swu.domain.User;
 import cn.edu.swu.domain.VO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import 		org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserControl {
+
+    //获取cookie
+    @RequestMapping(value = "/quick20")
+    @ResponseBody
+    public void save20(String username, MultipartFile[] uploadFiles) throws IOException {
+        System.out.println(username);
+        System.out.println(uploadFiles[0].getOriginalFilename());
+        File file = new File("E:\\springtmp\\" + uploadFiles[0].getOriginalFilename());
+        uploadFiles[0].transferTo(file);
+        System.out.println(uploadFiles[1].getOriginalFilename());
+        file = new File("E:\\springtmp\\" + uploadFiles[1].getOriginalFilename());
+        uploadFiles[1].transferTo(file);
+    }
+
+    //获取请求头
+    @RequestMapping(value = "/quick19")
+    @ResponseBody
+    public void save19(@RequestHeader(value = "User-Agent") String user_agent, @CookieValue(value = "JSESSIONID") String cookie) {
+        System.out.println(user_agent);
+        System.out.println(cookie);
+    }
+
+
+    @RequestMapping(value = "/quick18")
+    @ResponseBody
+    public void save18(HttpServletRequest quest, HttpServletResponse response, HttpSession session) {
+        System.out.println(quest);
+        System.out.println(response);
+        System.out.println(session);
+    }
+
+    @RequestMapping(value = "/quick17")
+    @ResponseBody
+    public void save17(Date date) {
+        System.out.println(date);
+    }
+
+
+    @RequestMapping(value = "/quick16/{name}")
+    @ResponseBody
+    public void save16(@PathVariable("name") String username) {
+        System.out.println(username);
+    }
+
+    @RequestMapping(value = "/quick15")
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save15(@RequestParam(value = "name", required = false, defaultValue = "test") String username) {
+        System.out.println(username);
+    }
+
 
     @RequestMapping(value = "/quick14", method = RequestMethod.POST)
     @ResponseBody
@@ -42,7 +91,7 @@ public class UserControl {
     @RequestMapping(value = "/quick12", method = RequestMethod.GET)
     @ResponseBody
     //springMVC将user转换成json字符串
-    public void save12(String[] strs){
+    public void save12(String[] strs) {
         System.out.println(Arrays.asList(strs));
     }
 
@@ -57,7 +106,7 @@ public class UserControl {
     @RequestMapping(value = "/quick10", method = RequestMethod.GET)
     @ResponseBody
     //springMVC将user转换成json字符串
-    public void save10(String username,int age) throws IOException {
+    public void save10(String username, int age) throws IOException {
         System.out.println(username);
         System.out.println(age);
     }
@@ -66,7 +115,7 @@ public class UserControl {
     @ResponseBody
     //springMVC将user转换成json字符串
     public User save9() throws IOException {
-        User user=new User();
+        User user = new User();
         user.setUsername("bcbbcbncbc");
         user.setAge(22);
         return user;
@@ -76,10 +125,10 @@ public class UserControl {
 //    不进行页面跳转直接页面响应回显数据
     @ResponseBody
     public String save8() throws IOException {
-        User user=new User();
+        User user = new User();
         user.setUsername("我是大帅哥");
         user.setAge(22);
-        ObjectMapper mapper=new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(user);
     }
 
