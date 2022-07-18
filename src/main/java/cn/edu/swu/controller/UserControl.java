@@ -1,10 +1,12 @@
 package cn.edu.swu.controller;
 
 import cn.edu.swu.domain.User;
+import cn.edu.swu.domain.VO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,10 +17,50 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserControl {
+
+    @RequestMapping(value = "/quick14", method = RequestMethod.POST)
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save14(@RequestBody List<User> userList) {
+        System.out.println(userList);
+    }
+
+    @RequestMapping(value = "/quick13", method = RequestMethod.POST)
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save13(VO vo) {
+        System.out.println(vo);
+    }
+
+
+    @RequestMapping(value = "/quick12", method = RequestMethod.GET)
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save12(String[] strs){
+        System.out.println(Arrays.asList(strs));
+    }
+
+    @RequestMapping(value = "/quick11", method = RequestMethod.GET)
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save11(User user) throws IOException {
+        System.out.println(user.getUsername());
+        System.out.println(user.getAge());
+    }
+
+    @RequestMapping(value = "/quick10", method = RequestMethod.GET)
+    @ResponseBody
+    //springMVC将user转换成json字符串
+    public void save10(String username,int age) throws IOException {
+        System.out.println(username);
+        System.out.println(age);
+    }
 
     @RequestMapping(value = "/quick9", method = RequestMethod.GET)
     @ResponseBody

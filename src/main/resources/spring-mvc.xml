@@ -27,8 +27,13 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 <!--                </list>-->
 <!--            </property>-->
 <!--        </bean>-->
+
+
 <!--        mvc注解驱动-->
         <mvc:annotation-driven/>
+<!--开放js资源的访问-->
+        <mvc:resources mapping="/js/**" location="/js/"/>
 
+        <mvc:default-servlet-handler/>
     </beans>
 </beans>

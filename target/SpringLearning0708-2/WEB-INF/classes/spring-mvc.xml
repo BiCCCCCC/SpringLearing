@@ -27,8 +27,11 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 <!--                </list>-->
 <!--            </property>-->
 <!--        </bean>-->
+
+
 <!--        mvc注解驱动-->
         <mvc:annotation-driven/>
+<!--        <mvc:resources mapping=""/>-->
 
     </beans>
 </beans>
